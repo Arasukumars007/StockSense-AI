@@ -1,6 +1,6 @@
-# [Project name]
+# StockSense AI
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+StockSense AI turns retail sales and inventory data into transparent risk alerts, reorder recommendations, and evidence-backed decisions for store managers.
 
 ## Run & Operate
 
@@ -22,15 +22,23 @@ _Replace the heading above with the project's name, and this line with one sente
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `artifacts/stocksense-ai/src/App.tsx` — routed dashboard, inventory, analytics, copilot, recommendations, upload, and product detail UI
+- `artifacts/stocksense-ai/src/index.css` — StockSense visual theme and motion utilities
+- `lib/api-spec/openapi.yaml` — source of truth for the StockSense API contract
+- `artifacts/api-server/src/lib/stocksense.ts` — demo seeding, inventory calculations, evidence, and recommendation logic
+- `artifacts/api-server/src/routes/stocksense.ts` — dashboard, inventory, analytics, copilot, upload, and recommendation endpoints
+- `lib/db/src/schema/stocksense.ts` — PostgreSQL schema for products, sales, categories, and recommendations
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- Business facts are calculated server-side from PostgreSQL rows; the copilot only formats those facts into natural-language explanations.
+- Demo mode seeds 50 intentionally varied products and 60 days of deterministic sales history so the app is useful immediately after launch.
+- Reorder quantities use lead-time demand plus two days of safety stock, rounded to a 10-unit case, and are shown with the calculation.
+- The frontend uses generated React Query hooks from the OpenAPI contract rather than hand-written fetch types.
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+The app provides an executive dashboard, searchable inventory table, sales analytics, evidence-backed AI copilot, grouped recommendations, CSV import with validation, demo-store loading, notifications, and product detail records.
 
 ## User preferences
 
@@ -38,7 +46,8 @@ _Populate as you build — explicit user instructions worth remembering across s
 
 ## Gotchas
 
-_Populate as you build — sharp edges, "always run X before Y" rules._
+- Keep `lib/api-spec/openapi.yaml` and generated clients in sync by running `pnpm --filter @workspace/api-spec run codegen` after contract changes.
+- The frontend build expects workflow-provided `PORT` and `BASE_PATH`; use the managed web workflow for preview.
 
 ## Pointers
 

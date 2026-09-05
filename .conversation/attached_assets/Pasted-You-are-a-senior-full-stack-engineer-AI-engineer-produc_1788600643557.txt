@@ -1,0 +1,903 @@
+You are a senior full-stack engineer, AI engineer, product designer, and hackathon mentor.
+
+I am participating in the NexusTiq24 hackathon.
+
+I have selected:
+
+TRACK: PS03 — Retail
+PROBLEM STATEMENT: Sales and Inventory Copilot
+
+PROJECT NAME:
+StockSense AI
+
+TAGLINE:
+"From Store Data to Smart Decisions."
+
+I need you to BUILD the complete working project, not just provide suggestions or a prototype.
+
+The application must be hackathon-ready, visually polished, functional, reliable, and easy to demonstrate in 5 minutes.
+
+====================================================
+1. PROBLEM
+====================================================
+
+Small retail store managers have large amounts of sales and inventory data, but important information is buried in spreadsheets and reports.
+
+They need answers to questions such as:
+
+- What is running out?
+- What is overstocked?
+- Which products are performing well?
+- Which products are losing sales?
+- What needs attention today?
+- What should I reorder?
+- Why should I reorder it?
+
+Build StockSense AI to solve this problem.
+
+The system should analyze sales and inventory data and provide evidence-backed recommendations.
+
+IMPORTANT:
+
+The AI must NEVER invent numbers.
+
+Every important answer must be supported by actual data from the database.
+
+When data is insufficient, the system must say:
+
+"I don't have enough data to answer that."
+
+====================================================
+2. MAIN USER JOURNEY
+====================================================
+
+The primary demo flow should be:
+
+Dashboard
+↓
+Critical Alert
+↓
+Product Details
+↓
+Evidence
+↓
+AI Copilot
+↓
+Recommendation
+↓
+Action
+
+This flow must be extremely polished because it will be demonstrated to hackathon judges.
+
+====================================================
+3. REQUIRED APPLICATION
+====================================================
+
+Build these pages:
+
+1. Dashboard
+2. Inventory
+3. Sales Analytics
+4. AI Copilot
+5. Recommendations
+6. Data Upload
+7. Product Details
+
+Use a professional SaaS dashboard layout.
+
+Application name:
+
+StockSense AI
+
+====================================================
+4. DASHBOARD
+====================================================
+
+Create an executive dashboard with:
+
+KPI cards:
+
+- Total Sales
+- Total Inventory
+- Low Stock Products
+- Overstock Products
+- Sales Growth
+
+Example:
+
+Total Sales
+₹1,24,500
+
+Inventory
+4,820 units
+
+Low Stock
+12
+
+Overstock
+8
+
+Sales Growth
++14.2%
+
+These values MUST be calculated from the database.
+
+Do not hardcode them.
+
+Add:
+
+Sales Overview chart
+
+Inventory Health chart
+
+Top Selling Products
+
+Slow Moving Products
+
+Attention Needed Today
+
+====================================================
+5. ATTENTION NEEDED TODAY
+====================================================
+
+Automatically identify important products.
+
+Example:
+
+RED / CRITICAL:
+
+Wireless Mouse
+
+Current stock: 8
+Average daily sales: 6
+Days remaining: 1.3
+Supplier lead time: 5 days
+
+Action:
+Reorder 40 units.
+
+WARNING:
+
+USB-C Cable
+
+Current stock: 12
+Average daily sales: 4
+Days remaining: 3 days
+
+OVERSTOCK:
+
+Bluetooth Speaker
+
+Current stock: 240
+Average daily sales: 2
+Days remaining: 120
+
+Action:
+Reduce next purchase.
+
+DECLINING SALES:
+
+Laptop Stand
+
+Sales declined by 28%.
+
+Action:
+Review pricing or promotion.
+
+====================================================
+6. INVENTORY PAGE
+====================================================
+
+Create a professional searchable inventory table.
+
+Columns:
+
+Product
+Category
+Price
+Current Stock
+Average Daily Sales
+Days Remaining
+Supplier Lead Time
+Status
+Recommendation
+
+Add:
+
+- Search
+- Category filter
+- Status filter
+- Sorting
+- Pagination
+- Product details
+
+Statuses:
+
+CRITICAL
+LOW
+HEALTHY
+OVERSTOCK
+DECLINING
+
+====================================================
+7. INVENTORY CALCULATIONS
+====================================================
+
+Implement real business logic.
+
+Days Remaining:
+
+current_stock / average_daily_sales
+
+Stock Risk:
+
+IF days_remaining < supplier_lead_time
+THEN HIGH RISK
+
+IF days_remaining >= supplier_lead_time
+AND days_remaining <= supplier_lead_time + 3
+THEN MEDIUM RISK
+
+ELSE LOW RISK
+
+Overstock:
+
+IF days_remaining > 60
+THEN OVERSTOCK
+
+Sales Growth:
+
+(current_period_sales - previous_period_sales)
+/
+previous_period_sales * 100
+
+Slow Moving:
+
+Identify products with unusually low sales velocity.
+
+Keep this business logic separate from the UI.
+
+====================================================
+8. REORDER ENGINE
+====================================================
+
+Build an actual recommendation engine.
+
+For risky products calculate:
+
+- Current stock
+- Average daily sales
+- Days remaining
+- Supplier lead time
+- Safety stock
+- Recommended reorder quantity
+
+Example:
+
+Wireless Mouse
+
+Current stock = 8
+Average daily sales = 6
+Days remaining = 1.33
+Supplier lead time = 5
+Safety stock = 10
+
+Recommendation:
+
+Reorder 40 units.
+
+Explain how the recommendation was calculated.
+
+Do not generate random quantities.
+
+====================================================
+9. SALES ANALYTICS
+====================================================
+
+Create a complete analytics dashboard.
+
+Charts:
+
+- Daily sales
+- Weekly sales
+- Monthly sales
+- Sales trend
+- Category revenue
+- Top products
+- Bottom products
+- Sales growth
+
+Filters:
+
+7 days
+30 days
+90 days
+
+Display:
+
+Revenue
+Units sold
+Growth %
+
+====================================================
+10. AI COPILOT
+====================================================
+
+This is the most important feature.
+
+Create:
+
+"StockSense AI Copilot"
+
+The manager can ask questions in natural language.
+
+Suggested questions:
+
+"What products are at risk of running out?"
+
+"What should I reorder today?"
+
+"Which products are overstocked?"
+
+"What were my best-selling products this month?"
+
+"Which products are losing sales?"
+
+"Why is Wireless Mouse marked as critical?"
+
+"What needs my attention today?"
+
+====================================================
+11. AI ARCHITECTURE
+====================================================
+
+IMPORTANT:
+
+Do NOT allow the LLM to independently invent or calculate business data.
+
+Use this architecture:
+
+Database
+↓
+Analytics Engine
+↓
+Calculated Facts
+↓
+AI
+↓
+Natural Language Explanation
+
+For example, backend calculates:
+
+{
+  "product": "Wireless Mouse",
+  "current_stock": 8,
+  "average_daily_sales": 6,
+  "days_remaining": 1.33,
+  "supplier_lead_time": 5,
+  "risk": "HIGH"
+}
+
+The AI receives those facts and explains them.
+
+The AI should not invent additional facts.
+
+====================================================
+12. EVIDENCE MODE
+====================================================
+
+Every important AI answer must contain:
+
+"View Evidence"
+
+When clicked, display:
+
+DATA SOURCE
+Sales Database
+
+ANALYSIS PERIOD
+Last 30 days
+
+PRODUCT
+Wireless Mouse
+
+UNITS SOLD
+186
+
+AVERAGE DAILY SALES
+6
+
+CURRENT STOCK
+8
+
+SUPPLIER LEAD TIME
+5 days
+
+DAYS REMAINING
+1.33
+
+CALCULATION:
+
+8 / 6 = 1.33 days
+
+CONCLUSION:
+
+HIGH STOCK-OUT RISK
+
+ASSUMPTION:
+
+Demand remains similar to the last 30 days.
+
+This evidence feature is critical for the hackathon.
+
+====================================================
+13. AI RESPONSE FORMAT
+====================================================
+
+When user asks:
+
+"What should I reorder today?"
+
+Answer in a structured format:
+
+Summary
+
+"3 products need immediate attention."
+
+Then:
+
+Product:
+Wireless Mouse
+
+Current stock:
+8 units
+
+Average daily sales:
+6 units/day
+
+Days remaining:
+1.3 days
+
+Supplier lead time:
+5 days
+
+Risk:
+HIGH
+
+Recommendation:
+Reorder 40 units.
+
+Why:
+Current inventory may run out before supplier delivery.
+
+Evidence:
+186 units sold in the last 30 days.
+
+Assumption:
+Demand remains similar to the recent period.
+
+Add:
+
+[View Evidence]
+
+====================================================
+14. ANTI-HALLUCINATION
+====================================================
+
+Implement strict rules:
+
+FACTS:
+Must come from database.
+
+CALCULATIONS:
+Must come from application/backend logic.
+
+ASSUMPTIONS:
+Must be explicitly labeled.
+
+RECOMMENDATIONS:
+Must be based on calculated facts.
+
+Never fabricate:
+
+- Products
+- Sales
+- Inventory
+- Prices
+- Supplier information
+- Trends
+
+If data is missing:
+
+"I don't have enough data to answer that."
+
+====================================================
+15. DATA UPLOAD
+====================================================
+
+Create CSV upload.
+
+Inventory CSV:
+
+product_id
+product_name
+category
+price
+current_stock
+daily_sales
+supplier_lead_time
+
+Sales CSV:
+
+date
+product_id
+units_sold
+revenue
+
+Features:
+
+- Upload CSV
+- Validate data
+- Show preview
+- Display errors
+- Import valid data
+- Refresh dashboard automatically
+
+Also provide:
+
+"Load Demo Data"
+
+====================================================
+16. DEMO DATA
+====================================================
+
+Create realistic demo data.
+
+At least:
+
+50 products
+
+30 days of sales history
+
+Categories:
+
+Electronics
+Accessories
+Audio
+Office
+Computer Peripherals
+Mobile Accessories
+
+Include:
+
+- Fast sellers
+- Slow sellers
+- Critical stock
+- Overstock
+- Declining sales
+- Healthy inventory
+
+Make the dataset intentionally interesting so that the dashboard produces useful insights.
+
+====================================================
+17. DATABASE
+====================================================
+
+Use PostgreSQL/Supabase if available.
+
+Tables:
+
+products
+sales
+inventory
+categories
+recommendations
+
+Create appropriate relationships.
+
+Do not hardcode dashboard information.
+
+Everything should be derived from actual stored data.
+
+====================================================
+18. PRODUCT DETAILS
+====================================================
+
+Clicking a product opens a detailed view.
+
+Display:
+
+Product name
+Category
+Price
+Current stock
+Average daily sales
+Days remaining
+Supplier lead time
+Stock status
+30-day sales
+Previous period sales
+Growth %
+Recommendation
+
+Also display:
+
+Sales trend chart
+
+Inventory information
+
+Evidence
+
+====================================================
+19. RECOMMENDATIONS PAGE
+====================================================
+
+Create:
+
+Immediate Actions
+Monitor
+No Action Required
+
+Example:
+
+HIGH PRIORITY
+
+Wireless Mouse
+
+Problem:
+Inventory may run out before supplier delivery.
+
+Evidence:
+8 units remaining
+6 units/day demand
+5-day supplier lead time
+
+Action:
+Reorder 40 units.
+
+====================================================
+20. NOTIFICATIONS
+====================================================
+
+Automatically generate notifications based on real data.
+
+Examples:
+
+"Wireless Mouse has less than 2 days of inventory."
+
+"Bluetooth Speaker is heavily overstocked."
+
+"Laptop Stand sales declined 28%."
+
+====================================================
+21. SEARCH
+====================================================
+
+Implement global search.
+
+Search:
+
+Products
+Categories
+Inventory
+Recommendations
+
+====================================================
+22. UI/UX
+====================================================
+
+Make it look like a premium commercial AI SaaS product.
+
+Use:
+
+- Modern typography
+- Cards
+- Charts
+- Clean tables
+- Status badges
+- Icons
+- Subtle animations
+- Responsive layout
+- Loading skeletons
+- Empty states
+- Error states
+
+Color coding:
+
+RED = Critical
+
+ORANGE/YELLOW = Warning
+
+GREEN = Healthy
+
+BLUE/PURPLE = AI / Information
+
+Do not overuse animations.
+
+====================================================
+23. RESPONSIVE
+====================================================
+
+Desktop:
+
+Sidebar + main dashboard
+
+Tablet:
+
+Collapsible sidebar
+
+Mobile:
+
+Responsive navigation
+
+Tables should become cards on mobile.
+
+====================================================
+24. DEMO MODE
+====================================================
+
+The application must work immediately after launch.
+
+Create:
+
+"Enter Demo Store"
+
+No complicated registration should be required for the hackathon demo.
+
+Show:
+
+Demo Store
+
+Make sure all important functionality works with the demo data.
+
+====================================================
+25. AI API
+====================================================
+
+If Gemini or another LLM API is available, integrate it securely.
+
+Use environment variables.
+
+Never expose API keys in frontend code.
+
+Create backend API endpoints for AI.
+
+If the AI API is unavailable, implement a deterministic fallback assistant based on the application's calculated data so the hackathon demo still works.
+
+====================================================
+26. SECURITY
+====================================================
+
+Do not expose:
+
+API keys
+Database passwords
+Secrets
+
+Use environment variables.
+
+Validate uploaded files.
+
+Sanitize user input.
+
+Use secure database access.
+
+====================================================
+27. TESTING
+====================================================
+
+Before considering the project complete:
+
+Test:
+
+Dashboard
+Inventory
+Search
+Filters
+Charts
+Calculations
+Recommendations
+CSV upload
+AI Copilot
+Evidence mode
+Product details
+Navigation
+Responsive UI
+
+Fix:
+
+TypeScript errors
+Runtime errors
+Broken buttons
+Broken routes
+Console errors
+Database errors
+API errors
+
+====================================================
+28. HACKATHON WOW FACTOR
+====================================================
+
+Add an "Inventory Health Score".
+
+Example:
+
+Inventory Health
+82 / 100
+
+Explain score using:
+
+- Stock-out risk
+- Overstock
+- Sales velocity
+- Declining products
+
+Create an attractive visual indicator.
+
+====================================================
+29. DEMO QUESTIONS
+====================================================
+
+Add clickable AI prompts:
+
+1.
+"Which products are at risk of running out?"
+
+2.
+"What should I reorder today?"
+
+3.
+"Which products are overstocked?"
+
+4.
+"Why is Wireless Mouse critical?"
+
+5.
+"Which products are losing sales?"
+
+6.
+"What needs my attention today?"
+
+====================================================
+30. FINAL HACKATHON CHECK
+====================================================
+
+After building the application, act as a hackathon judge.
+
+Evaluate:
+
+Problem understanding
+Innovation
+AI usage
+Accuracy
+User experience
+Technical implementation
+Business value
+Demo quality
+
+Then improve the application wherever necessary.
+
+DO NOT stop at giving me instructions.
+
+Actually build and test the project.
+
+The final application must be a functional MVP.
+
+====================================================
+FINAL PRODUCT
+====================================================
+
+Name:
+StockSense AI
+
+Tagline:
+From Store Data to Smart Decisions.
+
+Track:
+PS03 — Retail: Sales & Inventory Copilot
+
+Core USP:
+
+"StockSense AI doesn't just tell store managers what is happening — it shows them the numbers, explains why it matters, and recommends what to do next."
+
+Build the complete project now.

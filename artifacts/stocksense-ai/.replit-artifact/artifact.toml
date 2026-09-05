@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "StockSense AI"
+description = "A polished retail sales and inventory copilot for store managers. StockSense AI turns real sales and inventory data into transparent risk alerts, reorder recommendations, and evidence-backed answers."
+version = "1.0.0"
+id = "artifacts/stocksense-ai"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 20683
+
+[services.development]
+run = "pnpm --filter @workspace/stocksense-ai run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/stocksense-ai", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/stocksense-ai/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20683"
+BASE_PATH = "/"

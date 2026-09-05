@@ -1,0 +1,1 @@
+- [Orval and Zod compatibility](orval-zod-compatibility.md) — this workspace uses Zod 3, so generated validation must pin Orval's Zod output to version 3.
